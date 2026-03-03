@@ -6,9 +6,8 @@
 #SBATCH --mem=1G
 #SBATCH --output=pipeline.out
 #SBATCH --mail-type=END,FAIL
-#SBATCH --mail-user=sam.friedman@yale.edu
+#SBATCH --mail-user=<your-email>@yale.edu
 
-cd $SLURM_SUBMIT_DIR
 
 # Step 1: Analyze all plays
 echo "=== Analyzing all plays ==="

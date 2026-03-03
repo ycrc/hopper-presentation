@@ -1,19 +1,5 @@
 #!/bin/bash
 
-# =============================================================================
-# Slurm Job Script for the Analysis Pipeline
-#
-# Add your #SBATCH directives below to request resources from Slurm.
-# Refer to the slide for a list of common directives.
-# =============================================================================
-
-# --- Add your #SBATCH directives here ---
-
-
-# --- Pipeline starts here (no changes needed below) ---
-
-cd $SLURM_SUBMIT_DIR
-
 # Step 1: Analyze all plays
 echo "=== Analyzing all plays ==="
 for play in ../data/*.txt; do

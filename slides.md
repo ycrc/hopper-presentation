@@ -53,6 +53,7 @@ section::before {
 
 ## Using Bash, Snakemake and Nextflow
 
+Sam Friedman  
 Yale Center for Research Computing
 
 ---
@@ -98,7 +99,7 @@ We recommend an [Open OnDemand](https://docs.ycrc.yale.edu/clusters-at-yale/acce
 
 - Multiple steps that process input to produce output
 - Some steps depend on others completing first
-- It works — now you need to run it many times, scale it up, or share it
+- It works: now you need to run it many times, scale it up, or share it
 
 </div>
 <div>
@@ -124,7 +125,7 @@ We recommend an [Open OnDemand](https://docs.ycrc.yale.edu/clusters-at-yale/acce
 - Script versions multiply
 - Data folders accumulate
 - "It worked on my machine"
-- A step fails halfway — is the output valid?
+- A step fails halfway: is the output valid?
 
 ---
 
@@ -150,7 +151,7 @@ We recommend an [Open OnDemand](https://docs.ycrc.yale.edu/clusters-at-yale/acce
 
 - A workflow is a **directed acyclic graph** (DAG)
 - Nodes are tasks, edges are dependencies
-- No cycles — a task can't depend on its own output
+- No cycles: a task can't depend on its own output
 
 </div>
 <div>
@@ -218,7 +219,7 @@ For two plays, the workflow looks like this:
 
 # The DAG (Full)
 
-With all 10 plays, the DAG fans out — 45 compare steps:
+With all 10 plays, the DAG fans out: 45 compare steps:
 
 ![center h:400](images/workflow-dag.png)
 
@@ -239,151 +240,21 @@ Our original scripts are found in the workshop repository under `examples/bash/`
 
 ---
 
-# 01_analyze_play.sh — Overview
+# 01_analyze_play.sh
 
-Takes one play name as input, produces its top 100 words.
+Takes one play, produces its top 100 most frequent words:
 
-```bash
-# Usage: ./analyze_play.sh <play>
-
-PLAY="$1"
-INPUT="data/${PLAY}.txt"
-```
-
-Three steps: **clean** → **count** → **extract top 100**
-
----
-
-# 01 — Step 1: Clean the Text
-
-Convert to lowercase, remove punctuation, one word per line:
-
-```bash
-cat "$INPUT" \
-    | tr '[:upper:]' '[:lower:]' \
-    | tr -d '[:punct:]' \
-    | tr -s '[:space:]' '\n' \
-    > output/${PLAY}.clean.txt
-```
-
-- `tr '[:upper:]' '[:lower:]'` — lowercase everything
-- `tr -d '[:punct:]'` — delete punctuation
-- `tr -s '[:space:]' '\n'` — squeeze whitespace, one word per line
-
----
-
-# 01 — Step 1: What It Looks Like
-
-![center](images/clean-step.png)
-
----
-
-# 01 — Step 2: Count Word Frequencies
-
-Sort words, count unique occurrences, sort by frequency:
-
-```bash
-cat output/${PLAY}.clean.txt \
-    | sort \
-    | uniq -c \
-    | sort -rn \
-    > output/${PLAY}.counts.txt
-```
-
-Output looks like:
-
-```
-   1138 the
-    674 and
-    594 of
-    ...
-```
-
----
-
-# 01 — Step 3: Extract Top 100
-
-Keep only the 100 most frequent words, clean up intermediates:
-
-```bash
-head -100 output/${PLAY}.counts.txt > output/${PLAY}.top100.txt
-
-rm output/${PLAY}.clean.txt
-rm output/${PLAY}.counts.txt
-```
-
-- `data/hamlet.txt` → `output/hamlet.top100.txt`
-- Intermediate `.clean.txt` and `.counts.txt` are deleted
-
----
-
-# 01 — The Full Picture
+**clean text** → **count words** → **extract top 100**
 
 ![center](images/analyze-pipeline.png)
 
 ---
 
-# 02_compare_plays.sh — Overview
+# 02_compare_plays.sh
 
-Takes two play names, computes their **Jaccard similarity**.
+Takes two plays, computes **Jaccard similarity** of their top-100 word sets:
 
-```bash
-PLAY1="$1"
-PLAY2="$2"
-FILE1="output/${PLAY1}.top100.txt"
-FILE2="output/${PLAY2}.top100.txt"
-```
-
-Jaccard = |intersection| / |union| of their top-100 word sets.
-
----
-
-# 02 — Step 1: Extract Word Lists
-
-Strip the count column, keep just the words:
-
-```bash
-awk '{print $2}' "$FILE1" > output/${PLAY1}.words.txt
-awk '{print $2}' "$FILE2" > output/${PLAY2}.words.txt
-```
-
----
-
-# 02 — Step 2: Find Common Words
-
-Use `comm` to find the intersection of sorted word lists:
-
-```bash
-comm -12 \
-    <(sort output/${PLAY1}.words.txt) \
-    <(sort output/${PLAY2}.words.txt) \
-    > output/common.txt
-```
-
-- `comm -12` suppresses lines unique to either file
-- Only lines common to **both** files are kept
-
----
-
-# 02 — Step 3: Calculate Jaccard Similarity
-
-```bash
-COMMON=$(wc -l < output/common.txt)
-TOTAL1=$(wc -l < output/${PLAY1}.words.txt)
-TOTAL2=$(wc -l < output/${PLAY2}.words.txt)
-
-UNION=$((TOTAL1 + TOTAL2 - COMMON))
-SIMILARITY=$(echo "scale=3; $COMMON / $UNION" | bc)
-
-echo "${SIMILARITY}" > output/${PLAY1}_${PLAY2}.similarity
-```
-
-- `bc` handles decimal division (bash only does integers)
-- Output: a single file like `output/hamlet_macbeth.similarity`
-
----
-
-# 02 — The Full Picture
+Jaccard = |intersection| / |union|
 
 ![center](images/compare-step.png)
 
@@ -391,27 +262,11 @@ echo "${SIMILARITY}" > output/${PLAY1}_${PLAY2}.similarity
 
 # 03_combine_results.sh
 
-Loop through all `.similarity` files, build a CSV:
-
-```bash
-echo "play1,play2,similarity" > output/similarity_matrix.csv
-
-for file in output/*.similarity; do
-    basename=$(basename "$file" .similarity)
-    play1=$(echo "$basename" | cut -d'_' -f1)
-    play2=$(echo "$basename" | cut -d'_' -f2-)
-    similarity=$(cat "$file")
-
-    echo "${play1},${play2},${similarity}" \
-        >> output/similarity_matrix.csv
-done
-```
-
-- Final output: `output/similarity_matrix.csv`
+Loops through all `.similarity` files, builds a final CSV: `output/similarity_matrix.csv`
 
 ---
 
-# 00_run_all.sh — The Orchestrator
+# 00_run_all.sh: The Orchestrator
 
 ```bash
 # Step 1: Analyze all plays
@@ -436,53 +291,37 @@ done
 
 # What's Wrong With This?
 
-- Runs everything **serially** — no parallelism
-- No **dependency tracking** — if one step fails, downstream runs anyway
-- No **checkpointing** — must restart from scratch on failure
+- Runs everything **serially**: no parallelism
+- No **dependency tracking**: if one step fails, downstream runs anyway
+- No **checkpointing**: must restart from scratch on failure
 - **Manual cleanup** of intermediate files
 
 ---
 
 # Moving to Slurm
 
-Our script works, but we're running it on the login node. We need to:
+Our script works, but we're running it on the login node.   
+For a real workflow, we commonly:
 
-- **Request dedicated resources** — CPU, memory, time
-- **Run in the background** — submit the job and come back later
-- **Get notified** — email when the job finishes or fails
+- **Request dedicated resources**: CPU, memory, time
+- **Run in the background**: submit the job and come back later
+- **Get notified**: email when the job finishes or fails
 
-We can wrap `00_run_all.sh` in a Slurm job script with `#SBATCH` directives. This is better, but still a single serial job — no parallelism.
-
----
-
-# Slurm Job Script Review
-
-Add `#SBATCH` directives at the top of your script to request resources:
-
-|                   |               |            |
-| ----------------- | ------------- | ---------- |
-| `--job-name`      | `--partition` | `--time`   |
-| `--cpus-per-task` | `--mem`       | `--output` |
-| `--mail-type`     | `--mail-user` |            |
-
-```bash
-#SBATCH --partition=day
-#SBATCH --time=00:30:00
-```
-
-Full reference: [docs.ycrc.yale.edu/clusters-at-yale/job-scheduling](https://docs.ycrc.yale.edu/clusters-at-yale/job-scheduling/)
+We can wrap `00_run_all.sh` in a Slurm job script with `#SBATCH` directives. This is better, but still a single serial job: no parallelism.
 
 ---
 
-# Hands-On: Bash + Slurm
 
-1. Open `examples/bash/run_pipeline.sh` in your editor
-2. Add `#SBATCH` directives to set job name, partition, time, resources (CPU and Memory), output file, and email notifications
-3. Submit: `sbatch run_pipeline.sh`
-4. Watch progress: `tail -f pipeline.out`
-5. When done, check `output/similarity_matrix.csv`
+# Hands-On: Run the Bash Pipeline
 
-The completed version is in `run_pipeline_solution.sh`.
+1. `cd examples/bash`
+2. `bash run_pipeline.sh`
+3. Check `output/similarity_matrix.csv`
+4. Simulate a data change: `echo "change" >> ../data/hamlet.txt`
+5. Re-run: `bash run_pipeline_solution.sh`
+6. Notice the **entire** pipeline runs again: even the 9 unchanged plays
+
+This naïve approach to our pipeline has obvious drawbacks...
 
 ---
 
@@ -492,7 +331,6 @@ The completed version is in `run_pipeline_solution.sh`.
 
 ---
 
-<!-- TODO: For both snakemake and nextflow make sure we cover how to set job steps to run in local mode for small steps that would take longer to queue than to run. -->
 
 # What is Snakemake?
 
@@ -567,7 +405,7 @@ rule clean_text:
 </div>
 </div>
 
-- `{play}` is a **wildcard** — one rule handles all 10 plays
+- `{play}` is a **wildcard**: one rule handles all 10 plays
 - `temp()` marks the file for automatic cleanup
 
 ---
@@ -649,8 +487,8 @@ rule top_words:
 </div>
 </div>
 
-- No manual `rm` needed — `temp()` files are cleaned up automatically
-- This output is **not** `temp()` because downstream rules depend on it
+- No manual `rm` needed: `temp()` files are deleted after all rules that need them have finished
+- `top100.txt` is **not** `temp()` because it's a final deliverable we want to keep
 
 ---
 
@@ -747,21 +585,35 @@ When executing `snakemake`, it will find a `Snakefile` in the current directory.
 
 ---
 
-# What You Get for Free
+# The Snakemake DAG
 
+`snakemake --dag | dot -Tpng > dag.png`
+
+![center](images/snakemake_dag.png)
+
+---
+
+# The Snakemake DAG (Zoomed In)
+
+A look at Macbeth/Othello:
+
+![center h:430](images/snakemake_dag_crop.png)
+
+---
+
+# What You Get "For Free"
+
+- DAG visualization
 - Automatic dependency resolution
 - Only re-runs steps whose inputs changed
 - Parallel (multiple processes) execution with `-j`
-- DAG visualization
 - Dry-run mode
 
 ---
 
 # Snakemake on Slurm
 
-<!-- #TODO: Add section in Snakemake on how to run python code, R code, existing scripts, matlab script, etc. -->
-
-- `--executor slurm` — each rule becomes a separate Slurm job
+- `--executor slurm`: each rule becomes a separate Slurm job
 - Snakemake monitors and schedules automatically
 
 ```bash
@@ -769,20 +621,168 @@ snakemake -j4 --executor slurm \
   --default-resources slurm_partition=day mem_mb=1000 cpus_per_task=1
 ```
 
+**Note**: If running Snakemake from a Python environment, make sure you install `snakemake-executor-plugin-slurm`.
+
 ---
 
-<!-- #TODO: Add section in Snakemake on how to run python code, R code, existing scripts, matlab script, etc. -->
-<!-- #TODO: Add section in Snakemake on setup for running in HPC on Slurm. -->
+# Keeping Small Steps Local
+
+Not every rule needs its own Slurm job. Use `localrules` to run lightweight steps on the head node:
+
+```python
+localrules: all, combine_results
+
+rule all:
+    input: "output/similarity_matrix.csv"
+
+rule combine_results:
+    ...
+```
+
+- Everything else still gets submitted to Slurm via `--executor slurm`
+
+---
+
+# Custom Resources Per Rule
+
+Different steps have different needs. Use `resources:` to request more for heavy rules:
+
+```python
+rule star_align:
+    input: "reads/{sample}.fastq"
+    output: "aligned/{sample}.bam"
+    threads: 8
+    resources:
+        mem_mb=32000,
+        runtime=60             # minutes
+    shell: "STAR --runThreadN {threads} ..."
+```
+
+- `threads:` sets `--cpus-per-task` in the Slurm job
+- `resources:` sets memory, runtime, and other Slurm directives
+- `--default-resources` on the command line applies to rules that don't specify their own
+
+---
+
+# Containers in Snakemake
+
+Your pipeline needs specific software versions: containers bundle everything so results are reproducible anywhere.
+
+Snakemake supports per-rule `container:` directives:
+
+```python
+rule align_reads:
+    input: "reads.fastq"
+    output: "aligned.bam"
+    container: "docker://biocontainers/bwa:0.7.17"
+    shell: "bwa mem {input} > {output}"
+```
+
+You can also point to a local `.sif` file: `container: "/path/to/bwa.sif"`
+
+On our clusters we use **Apptainer** (not Docker), but Snakemake will convert.
+
+---
+
+
+# Python Scripts
+
+Use `script:` to call a Python script. Snakemake passes inputs/outputs automatically:
+
+<div class="columns">
+<div>
+
+**Snakefile**
+
+```python
+rule plot_results:
+    input:
+        "output/similarity_matrix.csv"
+    output:
+        "output/heatmap.png"
+    script:
+        "scripts/plot_heatmap.py"
+```
+
+</div>
+<div>
+
+**scripts/plot_heatmap.py**
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv(snakemake.input[0])
+# ... build heatmap ...
+plt.savefig(snakemake.output[0])
+```
+
+</div>
+</div>
+
+---
+
+# R Scripts
+
+Same pattern for R: Snakemake provides an `snakemake@` object:
+
+<div class="columns">
+<div>
+
+**Snakefile**
+
+```python
+rule fit_model:
+    input:
+        "output/counts.csv"
+    output:
+        "output/model.rds"
+    script:
+        "scripts/fit_model.R"
+```
+
+</div>
+<div>
+
+**scripts/fit_model.R**
+
+```r
+counts <- read.csv(snakemake@input[[1]])
+# ... fit model ...
+saveRDS(model, snakemake@output[[1]])
+```
+
+</div>
+</div>
+
+`shell:` still works for any command-line tool: MATLAB, Julia, etc.
+
+---
+
+# Running Snakemake with Containers
+
+Enable with `--software-deployment-method apptainer` (or `--sdm`):
+
+```bash
+snakemake -j4 --sdm apptainer
+```
+
+- Snakemake auto-pulls and caches container images
+- Each rule runs in its own isolated container
+- Our Shakespeare example uses only basic shell tools so no container is needed, but real-world pipelines typically specify one per rule.
+
+---
 
 # Hands-On: Snakemake
 
 1. `cd examples/snakemake` and `module load snakemake`
 2. Dry run: `snakemake -n`
 3. Execute: `snakemake -j1`
-4. Check: `cat output/similarity_matrix.csv`
-5. Simulate a data change and dry-run — only affected steps re-execute:
+4. Check: `head output/similarity_matrix.csv`
+5. Simulate a data change and dry-run: only affected steps re-execute:
    ```bash
-   touch ../data/hamlet.txt
+   echo "change" >> ../data/hamlet.txt
    snakemake -n   # 14 of 77 jobs will re-run
    ```
 
@@ -804,6 +804,7 @@ snakemake -j2 --executor slurm --latency-wait 30 \
   --default-resources slurm_partition=day \
   mem_mb=1000 cpus_per_task=1 runtime=5
 ```
+
 
 ---
 
@@ -920,7 +921,6 @@ workflow {
 
 - A **channel** is a stream of data flowing between processes
 - Nextflow automatically parallelizes: 10 files in the channel = 10 concurrent tasks
-- No wildcards or filename patterns — data flows through the DAG
 
 ---
 
@@ -931,30 +931,29 @@ Our Shakespeare workflow is implemented in Nextflow in `examples/nextflow/shakes
 ```bash
 cd examples/nextflow/shakespeare
 module load Nextflow
-nextflow run main.nf
+nextflow run main.nf -with-report shakespeare.html
 ```
 
-When finished, inspect the output files and the execution report in `results/`.
+When finished, inspect the output files in `output/` and the HTML report `shakespeare.html`.
 
 
 ---
 
 # Nextflow in Practice
 
-Rather than re-implement our Shakespeare workflow, we'll focus on the **most common real-world use case**: running an existing, community-maintained pipeline.
+Rather than focusing on our Shakespeare workflow, we'll look at the **most common real-world use case**: running an existing, community-maintained pipeline.
 
 - Thousands of researchers use Nextflow this way every day
 - Someone has already written, tested, and optimized the pipeline
-- You provide your data and configuration — Nextflow does the rest
+- You provide your data and configuration: Nextflow does the rest
 
 ---
 
 # Nextflow Configuration
 
-Configuration is separate from the pipeline code:
+Configuration is separate from the pipeline code, in `nextflow.config`:
 
-- `nextflow.config` — executor, resources, containers
-- **Profiles** — switch between environments (local, Slurm)
+- **Profiles**: switch between environments (local, Slurm)
 - On our cluster, we use the `apptainer` profile for containers
 
 ```groovy
@@ -971,12 +970,79 @@ apptainer {
 
 ---
 
-<!-- TODO: MUST-DO: Add a slide here about -resume and the work/ directory.
-  - work/ holds all intermediate files, can get large
-  - -resume restarts from where you left off (critical for long pipelines)
-  - nextflow clean to tidy up
-  This is important enough for the workshop to be in slides, not just the README.
--->
+# Containers in Nextflow
+
+Like Snakemake, Nextflow supports per-process `container` directives:
+
+```groovy
+process align_reads {
+    container 'docker://biocontainers/bwa:0.7.17'
+
+    input:
+    path reads
+
+    output:
+    path "aligned.bam"
+
+    script:
+    "bwa mem ${reads} > aligned.bam"
+}
+```
+
+You can also point to a local `.sif` file: `container '/path/to/bwa.sif'`
+
+---
+
+# Running Nextflow with Apptainer
+
+Enable in `nextflow.config` or use a profile:
+
+```bash
+nextflow run main.nf -profile apptainer
+```
+
+- Nextflow auto-pulls Docker images and converts them to Apptainer format
+- Set `cacheDir` to scratch storage — images can be large
+- This is already configured when you use `-profile apptainer` with nf-core pipelines
+
+---
+
+# The `work/` Directory
+
+Nextflow stores all intermediate files in `work/`:
+
+```
+work/
+├── 86/9b3800...    # clean_text (hamlet)
+├── 94/d89dc0...    # count_words (hamlet)
+├── 6d/5c8b4b...    # top_words (hamlet)
+└── ...
+```
+
+- Each task gets a unique subdirectory (hash-based)
+- Inputs are **symlinked** in, outputs are written here
+- `publishDir` copies final results out of `work/` to where you want them
+- `work/` can get **very large**: use `nextflow run ... -w ~/scratch/` to put it on scratch storage.
+
+---
+
+# `-resume`: Pick Up Where You Left Off
+
+```bash
+nextflow run main.nf -resume
+```
+
+- Nextflow checks `work/`: if a task's inputs haven't changed, it **skips** it
+- Critical for long pipelines: a failure at step 180 of 194 doesn't mean starting over
+- Also useful during development: change one process, re-run, only that step re-executes
+
+**Cleanup** when you're done:
+
+```bash
+nextflow clean -f       # delete all work/ contents
+```
+
+---
 
 <!-- _class: lead -->
 
@@ -986,7 +1052,6 @@ apptainer {
 
 # What is nf-core?
 
-<!-- TODO: Add slide that is just a screenshot of the nf-core website. -->
 
 - Community of **100+ curated Nextflow pipelines**
 - Standardized structure: every pipeline works the same way
@@ -996,33 +1061,28 @@ apptainer {
 
 ---
 
+# What is nf-core?
+
+![center h:500](images/nf-core-pipelines.png)
+
+---
+
+# What is nf-core?
+
+![center h:500](images/nf-core-rnaseq.png)
+
+---
+
 # Why Use Pre-Built Pipelines?
 
-- **Tested by hundreds of users** — bugs found and fixed
-- **Reproducible out of the box** — containers, pinned versions
-- **Saves months of development** — focus on your science
-- **Consistent interface** — learn one, use them all:
+- **Tested by hundreds of users**: all open-source!
+- **Reproducible out of the box**: containers, pinned versions
+- **Saves development time**: focus on your science
+- **Consistent interface**:
 
 ```bash
 nextflow run nf-core/<pipeline> -profile test,apptainer --outdir results
 ```
-
----
-
-# Hands-On Setup: Start This Now
-
-While I walk through the next slides, run this to download container images:
-
-<!-- TODO: MUST-DO: Add salloc with appropriate resources before the actual pipeline run slide. This salloc is fine for just pulling images. Confirm resources after testing. -->
-```bash
-salloc
-module load Nextflow
-export NXF_APPTAINER_CACHEDIR=~/scratch/apptainer_cache
-mkdir -p $NXF_APPTAINER_CACHEDIR
-nextflow pull nf-core/rnaseq
-```
-
-This caches Apptainer images so the pipeline runs faster later.
 
 ---
 
@@ -1031,68 +1091,95 @@ This caches Apptainer images so the pipeline runs faster later.
 The most widely-used nf-core pipeline: bulk RNA-seq analysis.
 
 **Steps:**
-1. **FastQC** — raw read quality check
-2. **Trim Galore** — adapter and quality trimming
-3. **STAR** — align reads to reference genome
-4. **Salmon** — quantify gene expression
-5. **MultiQC** — aggregate QC into one report
+1. **FastQC**: raw read quality check
+2. **Trim Galore**: adapter and quality trimming
+3. **STAR**: align reads to reference genome
+4. **Salmon**: quantify gene expression
+5. **MultiQC**: aggregate QC into one report
 
 Test profile uses a tiny yeast dataset (~50K reads).
 
 ---
 
-# Running nf-core/rnaseq
+# Nextflow on Slurm: Head Job Pattern
+
+Submit a lightweight batch job that acts as the Nextflow head node. It orchestrates the pipeline and submits each task as a separate Slurm job:
 
 ```bash
-nextflow run nf-core/rnaseq -profile test,apptainer --outdir results
+#!/bin/bash
+#SBATCH --partition=day
+#SBATCH --time=02:00:00
+#SBATCH --cpus-per-task=2
+#SBATCH --mem-per-cpu=4G
+
+module load Nextflow/24.10.2
+nextflow run nf-core/rnaseq -r 3.14.0 \
+    -profile test,apptainer \
+    -c nextflow.config --outdir output
+```
+
+`sbatch run_rnaseq_slurm.sh` — head job submits child Slurm jobs for each process.
+
+---
+
+# Mixing Local and Slurm Execution
+
+Use `nextflow.config` to route heavy steps to Slurm and keep lightweight steps local:
+
+```groovy
+process {
+    executor = 'slurm'
+    queue = 'day'
+    time = '1h'
+
+    // Keep lightweight steps local to avoid queue wait times
+    withName: 'MULTIQC|CUSTOM_DUMPSOFTWAREVERSIONS' {
+        executor = 'local'
+    }
+}
+```
+
+- `withName:` selects processes by name — use `|` to match multiple
+- Small steps run on the head node instantly instead of waiting in the queue
+
+---
+
+# Demo: Running nf-core/rnaseq
+
+```bash
+salloc --mem-per-cpu=4G --cpus-per-task=4
+nextflow run nf-core/rnaseq -r 3.14.0 -profile test,apptainer --outdir output
 ```
 
 | Flag                 | Purpose                                |
 | -------------------- | -------------------------------------- |
 | `nf-core/rnaseq`     | Pull and run the pipeline from nf-core |
+| `-r 3.14.0`          | Pin to a specific pipeline version     |
 | `-profile test`      | Use built-in test dataset (yeast)      |
 | `-profile apptainer` | Use Apptainer containers               |
-| `--outdir results`   | Where to write output                  |
+| `--outdir output`    | Where to write output                  |
 
-Runs in about **10 minutes** with 4 cores and 16GB RAM.
 
 ---
 
 # Inspecting Output
 
 ```
-results/
-├── multiqc/          # Start here: HTML summary report
+output/
+├── multiqc/          # HTML summary report
 ├── star_salmon/      # Aligned reads + quantification
 ├── fastqc/           # Per-sample QC reports
 ├── trimgalore/       # Trimmed reads
 └── pipeline_info/    # Execution timeline, versions
 ```
 
-Open `results/multiqc/multiqc_report.html` for alignment rates, read quality, and gene detection at a glance.
-
----
-
-<!-- #TODO: Test the nf-core/rnaseq example pipeline on the cluster before the workshop. -->
-
-# Hands-On: nf-core/rnaseq
-
-Run the pipeline with the test dataset:
-
-```bash
-nextflow run nf-core/rnaseq -profile test,apptainer --outdir results
-```
-
-While it runs, explore:
-- Watch the live progress display
-- When done, look at `results/multiqc/multiqc_report.html`
-- Check `results/pipeline_info/` for the execution report
+Open `output/multiqc/multiqc_report.html` for alignment rates, read quality, and gene detection at a glance.
 
 ---
 
 # Finding Pipelines for Your Research
 
-Browse https://nf-co.re/pipelines — examples:
+Browse https://nf-co.re/pipelines: examples:
 
 | Domain            | Pipeline         |
 | ----------------- | ---------------- |
@@ -1101,7 +1188,6 @@ Browse https://nf-co.re/pipelines — examples:
 | Single-cell       | nf-core/scrnaseq |
 | ATAC-seq          | nf-core/atacseq  |
 | Amplicon (16S)    | nf-core/ampliseq |
-| Metagenomics      | nf-core/mag      |
 | Fetch public data | nf-core/fetchngs |
 
 ---
@@ -1121,7 +1207,7 @@ Browse https://nf-co.re/pipelines — examples:
 
 Please help us improve this workshop by sharing feedback via a 2-minute anonymous survey. Thank you.
 
-For access — click the link or scan the QR Code:
+For access: click the link or scan the QR Code:
 https://yalesurvey.ca1.qualtrics.com/jfe/form/SV_ac86jTriewu9l8W
 
 ![center h:350](images/feedback_qr.png) 
@@ -1133,3 +1219,5 @@ https://yalesurvey.ca1.qualtrics.com/jfe/form/SV_ac86jTriewu9l8W
 # Questions?
 
 Thank you!
+
+Any remaining time can be used for additional questions and office hours.
