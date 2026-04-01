@@ -51,8 +51,6 @@ section::before {
 
 # Hopper Overview
 
-## Using Bash, Snakemake and Nextflow
-
 Rob Bjornson 
 Yale Center for Research Computing
 
@@ -74,8 +72,148 @@ Yale Center for Research Computing
 
 ---
 
+# Why do we need Hopper?
+
+- Many datasets now require a higher level of security than Bouchet provides.
+  - Data Use Agreements (DUAs)
+  - NIH controlled access datasets (e.g. dbGaP)
+ 
+Hopper complies with:
+  - NIST 800-171 standard
+  - HIPAA standard
+  - Can meet other specific DUAs
 
 ---
+# How does Hopper differ from other YCRC clusters?
+- Getting access
+- User Interface (VDI)
+- Security rules
+- No internet access
+- Data transfer
+- Software installation
+- Usage charges
+- Projects, not Groups
+- Reduced work quota
+- Getting Help
+  
+We'll touch on each in turn
+
+---
+# Getting access
+Access to the system is a multistep process:
+1. PI submits a project [request](https://research.computing.yale.edu/secure-project-request)
+2. Health Science IT (HSIT) consults with PI and approves request
+3. PI completes required security [training](http://research.computing.yale.edu/regulated-research-training)
+4. YCRC creates new project, PI account, and associated linux group: _netid_progname_
+5. Other lab members can join [project](https://research.computing.yale.edu/hopper-account-request)
+
+Of note: a PI can and should submit separate project requests for each individual project (e.g. IRB)
+
+---
+# User Interface
+- Hopper's user interface is a Virtual Desktop Infrastructure (VDI)
+- You _must_ be on the Yale VPN even when on campus
+- Access 
+  - Via browser: https://hopper.ycrc.yale.edu
+  - Via dedicated client.  [Download](https://www.cendio.com/thinlinc/download/)
+- You will receive a (silent) DUO prompt each time
+- The VDI is the equivalent of a login node
+- VDI provides terminal, firefox, Open On Demand
+- Session is "persistent" for some period
+- Cut/Copy/Paste between Hopper and outside is prevented
+- Cut/Copy/Paste inside Hopper is allowed
+
+---
+# No Internet Access
+- From Hopper, you are not able to directly access anything outside of Hopper.
+- All file transfers in and out are mediated by YCRC staff
+- With some exceptions, all software installs mediated by YCRC staff
+
+---
+# Data Transfer
+- Moving data into and out of Hopper requires submitting a request
+- We distinquish between Low and High Risk Data
+- [Low Risk Transfer In or Out](https://research.computing.yale.edu/hopper-low-risk-transfer): scripts, deidentified data, data files with no PHI, PII, etc.
+- [Sensitive Data Transfer In](https://research.computing.yale.edu/hopper-sensitive-transfer): everything else
+- Sensitive Data Transfer Out: contact YCRC
+
+---
+# Low Risk Data Transfer steps
+1. Use globus to upload your data to your folder in the "Yale CRC Hopper Low Risk" collection.
+2. Submit the [form](https://research.computing.yale.edu/hopper-low-risk-transfer)
+3. YCRC will move your data from the collection to your desired location on Hopper
+4. Download is the same in reverse
+
+---
+# Sensitive Data Transfer In
+1. Submit the [form](https://research.computing.yale.edu/hopper-sensitive-transfer) first.
+2. YCRC will approve, make necessary networking changes, and create a temporary globus receiving collection
+3. You will receive instructions on how to transfer your data.
+---
+
+# Sensitive Data Transfer Out 
+Transfer of sensitive data out is currently handled on a case-by-case basis.  Please contact YCRC.
+
+---
+# Software Installation
+Since you have no internet access, most download and installation of software must be done by YCRC. The applications will be made available as modules.
+
+There are two exceptions: 
+- python packages from the default anaconda repo.  Note: NOT conda-forge
+- many R packages from CRAN
+
+For all other software, first search the modules, then contact YCRC.
+
+---
+
+# What about your own code?
+You may transfer in, and compile code written by you or others in your lab. This is considered a low risk transfer.
+
+You may NOT transfer in and compile code written elsewhere.  Ask us to download and build it for you.
+
+---
+
+# Usage Charges
+Unlike YCRC's other clusters, currently _all_ use of Hopper incurs compute charges.  Current Rates:
+
+CPUs: $0.004/cpu-hour
+
+GPUs: $0.49-1.49 depending on type
+
+Storage beyond free quota: $5.15/TiB/month
+
+See [rates](https://docs.ycrc.yale.edu/clusters/hopper/#rate-structure)
+
+---
+# Getting help
+
+- Hopper doc [page](https://docs.ycrc.yale.edu/clusters/hopper)
+- Reach out to YCRC: email ycrc@yale.edu
+- Hopper-specific [Office Hours](https://yale.zoom.us/my/ycrcsupport): Thurs 2-3pm 
+- _Please do not send us screen shots!_
+- We cannot view your screen over zoom.  Instead, we can join your VDI session
+ 
+---
+# How is Hopper like other YCRC clusters?
+
+In many ways, Hopper will be familiar to you:
+- Slurm jobs
+- Partitions
+- Open On Demand (inside VDI)
+- Software Modules
+- Home, work, scratch directories
+
+---
+# Final security reminders
+
+- The VDI prevents copy/pasting to the host computer, prevents file transfers and enforces idle session timeouts. 
+- Screenshots, screen recording and screen sharing (e.g. via Zoom) are strictly prohibited.
+- If you know you will be away from your computer for more than 10 minutes, you must disconnect from the VDI by closing the browser tab or exiting the client.
+- You must access Hopper from a private location, such as your home or office. Access from public locations such as coffee shops, transportation hubs or libraries is not allowed.
+- Do not put sensitive data (e.g. patient information, personal identifiers) in directory names or job names, which might expose this information.
+
+---
+
 
 # Setup
 
