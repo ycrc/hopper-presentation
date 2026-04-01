@@ -2,8 +2,8 @@
 marp: true
 theme: default
 paginate: true
-header: "Pipelining Tools for HPC Workflows"
-footer: "February 24, 2026"
+header: "Hopper Overview"
+footer: "May 1, 2026"
 ---
 
 <style>
@@ -49,25 +49,31 @@ section::before {
 }
 </style>
 
-# Pipelining Tools for HPC Workflows
+# Hopper Overview
 
 ## Using Bash, Snakemake and Nextflow
 
-Sam Friedman  
+Rob Bjornson 
 Yale Center for Research Computing
 
 ---
 
 # Agenda
 
-- **The Problem**: why pipelines?
-- **Pipelining concepts**
-- **An example workflow**
-- **Bash & Slurm**
-- **Snakemake**: turning our example into a Snakemake pipeline
-- **Break**: 10minute break
-- **Nextflow**: using pipelines from the research community
+- **Who was Hopper?**
+- **Why do we need Hopper?**
+- **How does Hopper differ from other YCRC clusters?**
+- **How is Hopper like other YCRC clusters?**
 - **Resources**
+
+---
+# Who was Grace Murray Hopper?
+- detail
+- detail
+- detail
+
+---
+
 
 ---
 
