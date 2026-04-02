@@ -1,0 +1,3 @@
+
+
+module load nodejs && npx @marp-team/marp-cli slides.md --pdf --allow-local-files -o slides.pdf
