@@ -1,0 +1,30 @@
+name: Build and Deploy Marp Slides
+
+on:
+  push:
+    branches:
+      - main          # triggers on every push to main
+  workflow_dispatch:  # also allows manual trigger from GitHub UI
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # needed to push to gh-pages branch
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Convert Markdown to HTML and PDF
+        uses: KoharaKazuya/marp-cli-action@v2
+        with:
+          config-file: ./.marprc.yml
+          generate-html: true
+          generate-pdf: true
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./output
