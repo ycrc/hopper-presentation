@@ -68,7 +68,9 @@ Yale Center for Research Computing
 # Who was Grace Murray Hopper?
 - detail
 - detail
-- detail
+- overview
+- 
+![w:40%](images/Grace-Hopper-777x1024.jpg)
 
 ---
 
