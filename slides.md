@@ -83,7 +83,7 @@ Yale Center for Research Computing
 </div>
 <div>
 
-![](images/Grace-Hopper-777x1024.jpg)
+![w:250px](images/Grace-Hopper-777x1024.jpg)
 
 ---
 
