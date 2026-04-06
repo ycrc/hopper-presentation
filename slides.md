@@ -132,7 +132,7 @@ Access to the system is a multi-step process:
 1. PI submits a project [request](https://research.computing.yale.edu/secure-project-request)
 2. Health Science IT (HSIT) consults with PI and approves request
 3. PI completes required security [training](http://research.computing.yale.edu/regulated-research-training)
-4. YCRC creates new project, PI account, and associated linux group: _netid_progname_
+4. YCRC creates new project, PI account, and associated linux group: _netid_projname_
 5. Other lab members can join [project](https://research.computing.yale.edu/hopper-account-request)
 
 Of note: a PI can and should submit separate project requests for each individual project (e.g. IRB)
