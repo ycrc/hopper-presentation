@@ -126,15 +126,17 @@ Of note: a PI can and should submit separate project requests for each individua
 - Cut/Copy/Paste inside Hopper is allowed
 
 ---
+
 # No Internet Access
 - From Hopper, you are not able to directly access anything outside of Hopper.
 - All file transfers in and out are mediated by YCRC staff
 - With some exceptions, all software installs mediated by YCRC staff
 
+
 ---
 # Data Transfer
 - Moving data into and out of Hopper requires submitting a request
-- We distinquish between Low and High Risk Data
+- We distinquish between Low Risk and Sensitive Data
 - [Low Risk Transfer In or Out](https://research.computing.yale.edu/hopper-low-risk-transfer): scripts, deidentified data, data files with no PHI, PII, etc.
 - [Sensitive Data Transfer In](https://research.computing.yale.edu/hopper-sensitive-transfer): everything else
 - Sensitive Data Transfer Out: contact YCRC
@@ -149,8 +151,11 @@ Of note: a PI can and should submit separate project requests for each individua
 ---
 # Sensitive Data Transfer In
 1. Submit the [form](https://research.computing.yale.edu/hopper-sensitive-transfer) first.
-2. YCRC will approve, make necessary networking changes, and create a temporary globus receiving collection
+2. YCRC will approve, make all necessary networking changes, and create a temporary globus receiving collection
 3. You will receive instructions on how to transfer your data.
+
+Transfers requiring method other than globus are possible with YCRC assistance.
+
 ---
 
 # Sensitive Data Transfer Out 
@@ -158,18 +163,26 @@ Transfer of sensitive data out is currently handled on a case-by-case basis.  Pl
 
 ---
 # Software Installation
-Since you have no internet access, most download and installation of software must be done by YCRC. The applications will be made available as modules.
-
-There are two exceptions: 
+- Since you have no internet access, most download and installation of software must be done by YCRC. \
+- The applications will generally be made available as modules.
+  
+There are two exceptions allowing self-service: 
 - python packages from the default anaconda repo.  Note: NOT conda-forge
-- many R packages from CRAN
+
+```
+module load miniconda
+conda create/install ...
+```
+ 
+- many approved R packages from CRAN.  Use `install.packages()`
 
 For all other software, first search the modules, then contact YCRC.
 
 ---
 
-# What about your own code?
-You may transfer in, and compile code written by you or others in your lab. This is considered a low risk transfer.
+## What about your own code?
+You may transfer in scripts.  You may transfer in and compile code written by you or others in your lab. 
+This is considered a low risk transfer.
 
 You may NOT transfer in and compile code written elsewhere.  Ask us to download and build it for you.
 
@@ -178,9 +191,12 @@ You may NOT transfer in and compile code written elsewhere.  Ask us to download 
 # Usage Charges
 Unlike YCRC's other clusters, currently _all_ use of Hopper incurs compute charges.  Current Rates:
 
-CPUs: $0.004/cpu-hour
+type | cost/hour
+---- | -----
+CPUs | $0.004
+mid-range GPU | $0.49
+H200/B200 | $0.99-1.49
 
-GPUs: $0.49-1.49 depending on type
 
 Storage beyond free quota: $5.15/TiB/month
 
