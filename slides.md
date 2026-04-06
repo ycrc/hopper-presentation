@@ -75,7 +75,7 @@ Yale Center for Research Computing
 - detail
 - overview
 - 
-![w:40%](images/Grace-Hopper-777x1024.jpg)
+![w:250px](images/Grace-Hopper-777x1024.jpg)
 
 ---
 
@@ -166,6 +166,8 @@ Of note: a PI can and should submit separate project requests for each individua
 - You must access Hopper from a private location, such as your home or office. Access from public locations such as coffee shops, transportation hubs or libraries is not allowed.
 - Do not put sensitive data (e.g. patient information, personal identifiers) in directory names or job names, which might expose this information.
 - Maintenance (usually less than 1 day) is done quarterly.
+
+---
 
 # No Internet Access
 - From Hopper, you are not able to directly access anything outside of Hopper.
