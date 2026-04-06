@@ -96,13 +96,12 @@ Hopper complies with:
 - Usage charges
 - Projects, not Groups
 - Reduced work quota
-- Getting Help
   
 We'll touch on each in turn
 
 ---
 # Getting access
-Access to the system is a multistep process:
+Access to the system is a multi-step process:
 1. PI submits a project [request](https://research.computing.yale.edu/secure-project-request)
 2. Health Science IT (HSIT) consults with PI and approves request
 3. PI completes required security [training](http://research.computing.yale.edu/regulated-research-training)
@@ -113,15 +112,16 @@ Of note: a PI can and should submit separate project requests for each individua
 
 ---
 # User Interface
-- Hopper's user interface is a Virtual Desktop Infrastructure (VDI)
+- Hopper's only user interface is a Virtual Desktop Infrastructure (VDI)
 - You _must_ be on the Yale VPN even when on campus
-- Access 
+- Two ways to access VDI 
   - Via browser: https://hopper.ycrc.yale.edu
   - Via dedicated client.  [Download](https://www.cendio.com/thinlinc/download/)
 - You will receive a (silent) DUO prompt each time
 - The VDI is the equivalent of a login node
 - VDI provides terminal, firefox, Open On Demand
 - Session is "persistent" for some period
+- Each user has one unique VDI session
 - Cut/Copy/Paste between Hopper and outside is prevented
 - Cut/Copy/Paste inside Hopper is allowed
 
