@@ -143,7 +143,7 @@ Of note: a PI can and should submit separate project requests for each individua
 - You _must_ be on the Yale VPN even when on campus
 - Two ways to access VDI 
   - Via browser: https://hopper.ycrc.yale.edu
-  - Via dedicated client.  [Download](https://www.cendio.com/thinlinc/download/)
+  - Via dedicated ThinLinc client.  [Download](https://www.cendio.com/thinlinc/download/)
 - You will receive a (silent) DUO prompt each time
 - The VDI is the equivalent of a login node
 - VDI provides terminal, firefox, Open On Demand
