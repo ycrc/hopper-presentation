@@ -60,6 +60,7 @@ Yale Center for Research Computing
 
 - **Who was Hopper?**
 - **Why do we need Hopper?**
+- **Hopper resources**
 - **How is Hopper like other YCRC clusters?**
 - **How does Hopper differ from other YCRC clusters?**
 - **Resources**
@@ -99,6 +100,7 @@ Hopper complies with:
 VAST 2.4 PiB
 
 [Hopper resources](https://docs.ycrc.yale.edu/clusters/hopper/#partitions-and-hardware)
+
 ---
 
 # How is Hopper like other YCRC clusters?
