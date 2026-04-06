@@ -70,11 +70,28 @@ Yale Center for Research Computing
 - **Resources**
 
 ---
+
 # Who was Grace Murray Hopper?
-- detail
-- detail
-- overview
-- 
+
+<div class="columns">
+<div>
+- Ph.D. in Mathematics from Yale in 1934
+- Pioneering computer scientist 
+- Trailblazer in creating computer languages
+</div>
+<div>
+
+![](images/Grace-Hopper-777x1024.jpg)
+
+---
+
+</div>
+</div>
+# Who was Grace Murray Hopper?
+- Ph.D. in Mathematics from Yale in 1934
+- Pioneering computer scientist 
+- Trailblazer in creating computer languages
+
 ![w:250px](images/Grace-Hopper-777x1024.jpg)
 
 ---
