@@ -199,7 +199,7 @@ Transfer of sensitive data out is currently handled on a case-by-case basis.  Pl
 
 ---
 # Software Installation
-- Since you have no internet access, most download and installation of software must be done by YCRC. \
+- Since you have no internet access, most download and installation of software must be done by YCRC.
 - The applications will generally be made available as modules.
   
 There are two exceptions allowing self-service: 
@@ -242,11 +242,11 @@ See [rates](https://docs.ycrc.yale.edu/clusters/hopper/#rate-structure)
 ---
 # Projects, not Groups
 Accounts on Hopper are subtly different from other YCRC clusters
-- Each logical _Project_ is set up independently, with it's own linux group and membership
+- Each logical _Project_ is set up independently, with its own linux group and membership
 - Projects are intended to be impermanent.  Once the research project is complete, the project is terminated
 - Projects must be reauthorized annually.
 - PIs can and should have multiple Hopper projects if working on unrelated research projects
-- Each project has it's own work and scratch directories
+- Each project has its own work and scratch directories
 - However, each user has a single home directory
 
 ---
