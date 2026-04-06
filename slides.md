@@ -47,6 +47,10 @@ section::before {
   width: 100px;
   height: 50px;
 }
+
+section p, section li, section td, section th {
+  font-size: 0.85em;
+}
 </style>
 
 # Hopper Overview
