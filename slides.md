@@ -78,7 +78,7 @@ Yale Center for Research Computing
   
 - Ph.D. in Mathematics from Yale in 1934
 - Pioneering computer scientist 
-- Trailblazer in creating computer languages
+- Trailblazer in creating first compiled computer languages
 
 </div>
 <div>
@@ -102,12 +102,13 @@ Hopper complies with:
 
 # Hopper's Hardware
 - ~6000 cpus
-- 40 a5000
-- 40 l40s
-- 40 a40
-- 40 H200
-- 60 H100
-- _48 B200 coming_
+- GPUs
+  - 40 a5000
+  - 40 l40s
+  - 40 a40
+  - 40 H200
+  - 60 H100
+  - _48 B200 coming_
   
 VAST 2.4 PiB
 
@@ -141,11 +142,11 @@ We'll touch on each in turn
 ---
 # Getting access
 Access to the system is a multi-step process:
-1. PI submits a project [request](https://research.computing.yale.edu/secure-project-request)
+1. PI submits a project https://research.computing.yale.edu/secure-project-request
 2. Health Science IT (HSIT) consults with PI and approves request
-3. PI completes required security [training](http://research.computing.yale.edu/regulated-research-training)
+3. PI completes required security http://research.computing.yale.edu/regulated-research-training
 4. YCRC creates new project, PI account, and associated linux group: _netid_projname_
-5. Other lab members can join [project](https://research.computing.yale.edu/hopper-account-request)
+5. Other lab members can join https://research.computing.yale.edu/hopper-account-request
 
 Of note: a PI can and should submit separate project requests for each individual project (e.g. IRB)
 
@@ -155,21 +156,22 @@ Of note: a PI can and should submit separate project requests for each individua
 - You _must_ be on the Yale VPN even when on campus
 - Two ways to access VDI 
   - Via browser: https://hopper.ycrc.yale.edu
-  - Via dedicated ThinLinc client.  [Download](https://www.cendio.com/thinlinc/download/)
+  - Via dedicated ThinLinc client. https://www.cendio.com/thinlinc/download
 - You will receive a (silent) DUO prompt each time
 - The VDI is the equivalent of a login node
 - VDI provides terminal, firefox, Open On Demand
 - Session is "persistent" for some period
 - Each user has one unique VDI session
 - Cut/Copy/Paste between Hopper and outside is prevented
-- Cut/Copy/Paste inside Hopper is allowed
+- Cut/Copy/Paste inside Hopper is allowed (right click + copy/paste)
 
 
 ---
 # Security Measures and Rules
 
 - The VDI prevents copy/pasting to the host computer, prevents file transfers and enforces idle session timeouts. 
-- Screenshots, screen recording and screen sharing (e.g. via Zoom) are strictly prohibited.
+- External screenshots, screen recording and screen sharing (e.g. via Zoom) are strictly prohibited.
+- Internal screenshots can be made with ThinLinc client.
 - If you know you will be away from your computer for more than 10 minutes, you must disconnect from the VDI by closing the browser tab or exiting the client.
 - You must access Hopper from a private location, such as your home or office. Access from public locations such as coffee shops, transportation hubs or libraries is not allowed.
 - Do not put sensitive data (e.g. patient information, personal identifiers) in directory names or job names, which might expose this information.
@@ -187,20 +189,20 @@ Of note: a PI can and should submit separate project requests for each individua
 # Data Transfer
 - Moving data into and out of Hopper requires submitting a request
 - We distinquish between Low Risk and Sensitive Data
-- [Low Risk Transfer In or Out](https://research.computing.yale.edu/hopper-low-risk-transfer): scripts, deidentified data, data files with no PHI, PII, etc.
-- [Sensitive Data Transfer In](https://research.computing.yale.edu/hopper-sensitive-transfer): everything else
+- Low Risk Transfer In or Out: https://research.computing.yale.edu/hopper-low-risk-transfer : scripts, deidentified data, data files with no PHI, PII, etc.
+- Sensitive Data Transfer In: https://research.computing.yale.edu/hopper-sensitive-transfer : everything else
 - Sensitive Data Transfer Out: contact YCRC
 
 ---
 # Low Risk Data Transfer steps
 1. Use globus to upload your data to your folder in the "Yale CRC Hopper Low Risk" collection.
-2. Submit the [form](https://research.computing.yale.edu/hopper-low-risk-transfer)
+2. Submit https://research.computing.yale.edu/hopper-low-risk-transfer
 3. YCRC will move your data from the collection to your desired location on Hopper
 4. Download is the same in reverse
 
 ---
 # Sensitive Data Transfer In
-1. Submit the [form](https://research.computing.yale.edu/hopper-sensitive-transfer) first.
+1. Submit https://research.computing.yale.edu/hopper-sensitive-transfer first.
 2. YCRC will approve, make all necessary networking changes, and create a temporary globus receiving collection
 3. You will receive instructions on how to transfer your data.
 
@@ -251,7 +253,7 @@ H200/B200 | $0.99-1.49
 
 Storage beyond free quota: $5.15/TiB/month
 
-See [rates](https://docs.ycrc.yale.edu/clusters/hopper/#rate-structure)
+See https://docs.ycrc.yale.edu/clusters/hopper/#rate-structure
 
 ---
 # Projects, not Groups
@@ -278,9 +280,9 @@ Aside from the snapshots, _no data is backed up!_
 ---
 # Getting help
 
-- Hopper doc [page](https://docs.ycrc.yale.edu/clusters/hopper)
+- Hopper doc https://docs.ycrc.yale.edu/clusters/hopper
 - Reach out to YCRC: email ycrc@yale.edu
-- Hopper-specific [Office Hours](https://yale.zoom.us/my/ycrcsupport): Thurs 2-3pm 
+- Hopper-specific Office Hours https://yale.zoom.us/my/ycrcsupport: Thurs 2-3pm 
 - _Please do not send us screen shots!_
 - We cannot view your screen over zoom.  Instead, we can join your VDI session
  
