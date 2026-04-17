@@ -176,7 +176,8 @@ Of note: a PI can and should submit separate project requests for each individua
 - Maintenance (usually less than 1 day) is done quarterly.
 
 ---
-![HopperFC Decision Tree](images/hopper_fc.svg)
+![w:150px](images/hopper_fc_v9.svg)
+
 ---
 
 # No Internet Access
