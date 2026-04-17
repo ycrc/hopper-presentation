@@ -162,14 +162,12 @@ Of note: a PI can and should submit separate project requests for each individua
 - VDI provides terminal, firefox, Open On Demand
 - Session is "persistent" for some period
 - Each user has one unique VDI session
-- Cut/Copy/Paste between Hopper and outside is prevented
-- Cut/Copy/Paste inside Hopper is allowed (right click + copy/paste)
-
 
 ---
 # Security Measures and Rules
 
-- The VDI prevents copy/pasting to the host computer, prevents file transfers and enforces idle session timeouts. 
+- The VDI prevents copy/pasting to the host computer, prevents file transfers and enforces idle session timeouts.
+- Cut/Copy/Paste inside Hopper is allowed (right click + copy/paste)
 - External screenshots, screen recording and screen sharing (e.g. via Zoom) are strictly prohibited.
 - Internal screenshots can be made with ThinLinc client.
 - If you know you will be away from your computer for more than 10 minutes, you must disconnect from the VDI by closing the browser tab or exiting the client.
@@ -177,6 +175,8 @@ Of note: a PI can and should submit separate project requests for each individua
 - Do not put sensitive data (e.g. patient information, personal identifiers) in directory names or job names, which might expose this information.
 - Maintenance (usually less than 1 day) is done quarterly.
 
+---
+![HopperFC Decision Tree](hopper_fc.svg)
 ---
 
 # No Internet Access
