@@ -65,7 +65,7 @@ Yale Center for Research Computing
 
 - **Who was Hopper?**
 - **Why do we need Hopper?**
-- **Do I need to use Hopper?****
+- **Do I need to use Hopper?**
 - **Hopper resources**
 - **How is Hopper like other YCRC clusters?**
 - **How does Hopper differ from other YCRC clusters?**
@@ -114,10 +114,10 @@ Hopper complies with:
   
 VAST 2.4 PiB
 
-[Hopper resources](https://docs.ycrc.yale.edu/clusters/hopper/#partitions-and-hardware)
+https://docs.ycrc.yale.edu/clusters/hopper/#partitions-and-hardware
 
 ---
-# Do I need to use Hopper?
+# Do _I_ need to use Hopper?
 
 ![w:600px](images/Simplified_Workflow.png)
 
@@ -151,7 +151,7 @@ We'll touch on each in turn
 Access to the system is a multi-step process:
 1. PI submits a project https://research.computing.yale.edu/secure-project-request
 2. Health Science IT (HSIT) consults with PI and approves request
-3. PI completes required security http://research.computing.yale.edu/regulated-research-training
+3. PI completes required training http://research.computing.yale.edu/regulated-research-training
 4. YCRC creates new project, PI account, and associated linux group: _netid_projname_
 5. Other lab members can join https://research.computing.yale.edu/hopper-account-request
 
@@ -167,13 +167,13 @@ Of note: a PI can and should submit separate project requests for each individua
 - You will receive a (silent) DUO prompt each time
 - The VDI is the equivalent of a login node
 - VDI provides terminal, firefox, Open On Demand
-- Session is "persistent" for some period
+- Session is persistent for extdnded period
 - Each user has one unique VDI session
 
 ---
 # Security Measures and Rules
 
-- The VDI prevents copy/pasting to the host computer, prevents file transfers and enforces idle session timeouts.
+- The VDI prevents copy/pasting with the host computer, prevents file transfers and enforces idle session timeouts.
 - Cut/Copy/Paste inside Hopper is allowed (right click + copy/paste)
 - External screenshots, screen recording and screen sharing (e.g. via Zoom) are strictly prohibited.
 - Internal screenshots can be made with ThinLinc client.
@@ -221,7 +221,7 @@ Transfer of sensitive data out is currently handled on a case-by-case basis.  Pl
 
 ---
 # Software Installation
-- Since you have no internet access, most download and installation of software must be done by YCRC.
+- Since you have no internet access, most software installation must be done by YCRC.
 - The applications will generally be made available as modules.
   
 There are two exceptions allowing self-service: 
@@ -300,14 +300,11 @@ Aside from the snapshots, _no data is backed up!_
 
 Please help us improve this workshop by sharing feedback via a 2-minute anonymous survey. Thank you.
 
-For access: click the link or scan the QR Code:
-https://yalesurvey.ca1.qualtrics.com/jfe/form/SV_ac86jTriewu9l8W
+Scan the QR Code:
 
 ![center h:350](images/feedback_qr.png) 
 
 ---
-
-<!-- _class: lead -->
 
 # Questions?
 
