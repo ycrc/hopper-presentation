@@ -1,5 +1,6 @@
 ---
 marp: true
+html: true
 theme: default
 paginate: true
 header: "Hopper Overview"
@@ -64,6 +65,7 @@ Yale Center for Research Computing
 
 - **Who was Hopper?**
 - **Why do we need Hopper?**
+- **Do I need to use Hopper?****
 - **Hopper resources**
 - **How is Hopper like other YCRC clusters?**
 - **How does Hopper differ from other YCRC clusters?**
@@ -81,7 +83,7 @@ Yale Center for Research Computing
 - Trailblazer in creating first compiled computer languages
 
 </div>
-<div>
+</div>
 
 ![w:250px](images/Grace-Hopper-777x1024.jpg)
 
@@ -89,7 +91,7 @@ Yale Center for Research Computing
 
 # Why do we need Hopper?
 
-- Many datasets now require a higher level of security than Bouchet provides.
+Many datasets now require a higher level of security than Bouchet provides.
   - Data Use Agreements (DUAs)
   - NIH controlled access datasets (e.g. dbGaP)
  
@@ -113,6 +115,11 @@ Hopper complies with:
 VAST 2.4 PiB
 
 [Hopper resources](https://docs.ycrc.yale.edu/clusters/hopper/#partitions-and-hardware)
+
+---
+# Do I need to use Hopper?
+
+![w:600px](images/Simplified_Workflow.png)
 
 ---
 
@@ -175,8 +182,6 @@ Of note: a PI can and should submit separate project requests for each individua
 - Do not put sensitive data (e.g. patient information, personal identifiers) in directory names or job names, which might expose this information.
 - Maintenance (usually less than 1 day) is done quarterly.
 
----
-![w:600px](images/hopper_fc_v9.svg)
 
 ---
 
@@ -258,7 +263,7 @@ See https://docs.ycrc.yale.edu/clusters/hopper/#rate-structure
 
 ---
 # Projects, not Groups
-Accounts on Hopper are subtly different from other YCRC clusters
+Accounts on Hopper are different from other YCRC clusters
 - Each logical _Project_ is set up independently, with its own linux group and membership
 - Projects are intended to be impermanent.  Once the research project is complete, the project is terminated
 - Projects must be reauthorized annually.
