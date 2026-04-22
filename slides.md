@@ -291,6 +291,16 @@ Aside from the snapshots, _no data is backed up!_
 - Hopper-specific Office Hours https://yale.zoom.us/my/ycrcsupport: Thurs 2-3pm 
 - _Please do not send us screen shots!_
 - We cannot view your screen over zoom.  Instead, we can join your VDI session
+
+---
+## Some Submitted Questions
+- _What level of data differentiates Bouchet and Hopper?_ 
+- _Can YNHH EPIC data be stored on Hopper_ Yes
+- _How do I transfer data from NIH repositories such as ABCD to Hopper?_ Sensitive transfer
+- _Is this is the best cluster to use for analyzing sequencing data?_  No.  McCleary is still the cluster to use
+- _Can Hopper be coordinated with the YNHH data brokers (JDAT) so we can take clinical identifiable data from the hospital to Hopper?_ Yes
+- _Please explain when Milgram is still appropriate._  Milgram is reaching EOL.  New usage will be on Hopper or Bouchet
+- _Can people with sponsored identities use Hopper?_ Not currently
  
 ---
 
@@ -308,8 +318,3 @@ Scan the QR Code:
 
 ---
 
-# Questions?
-
-Thank you!
-
-Any remaining time can be used for additional questions and office hours.
