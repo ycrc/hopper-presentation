@@ -3,8 +3,8 @@ marp: true
 html: true
 theme: default
 paginate: true
-header: "Hopper Overview"
-footer: "May 1, 2026"
+header: Hopper Overview
+footer: April 23, 2026
 ---
 
 <style>
@@ -299,6 +299,8 @@ Aside from the snapshots, _no data is backed up!_
 # Workshop Feedback
 
 Please help us improve this workshop by sharing feedback via a 2-minute anonymous survey. Thank you.
+
+[https://yalesurvey.ca1.qualtrics.com/jfe/form/SV_dgL2LLO0KpHWYqq](https://yalesurvey.ca1.qualtrics.com/jfe/form/SV_dgL2LLO0KpHWYqq)
 
 Scan the QR Code:
 
