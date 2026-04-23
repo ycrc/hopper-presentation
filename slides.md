@@ -54,15 +54,17 @@ section p, section li, section td, section th {
 }
 </style>
 
-# Hopper Overview
+# Computing with Sensitive Data on Hopper 
 
 Rob Bjornson 
+Director of Biomedical Research Support 
 Yale Center for Research Computing
 
 ---
 
 # Agenda
 
+- **YCRC**
 - **Who was Hopper?**
 - **Why do we need Hopper?**
 - **Do I need to use Hopper?**
@@ -70,6 +72,24 @@ Yale Center for Research Computing
 - **How is Hopper like other YCRC clusters?**
 - **How does Hopper differ from other YCRC clusters?**
 - **Resources**
+- **Questions**
+
+---
+
+## Yale Center for Research Computing (YCRC)
+
+- Independent center under the Provost's office
+- Created to support your research computing needs
+- Focus is on high performance computing and storage
+- ~25 staff, including applications specialists and system engineers
+- Available to consult with and educate users
+
+
+<div style="text-align: center">
+
+![w:350px](images/YCRC_Team.jpg)
+
+</div>
 
 ---
 
@@ -295,7 +315,7 @@ Aside from the snapshots, _no data is backed up!_
 ---
 ## Some Submitted Questions
 - _What level of data differentiates Bouchet and Hopper?_ 
-- _Can YNHH EPIC data be stored on Hopper_ Yes
+- _Can YNHH EPIC data be stored on Hopper?_ Yes
 - _How do I transfer data from NIH repositories such as ABCD to Hopper?_ Sensitive transfer
 - _Is this is the best cluster to use for analyzing sequencing data?_  No.  McCleary is still the cluster to use
 - _Can Hopper be coordinated with the YNHH data brokers (JDAT) so we can take clinical identifiable data from the hospital to Hopper?_ Yes
@@ -303,7 +323,9 @@ Aside from the snapshots, _no data is backed up!_
 - _Can people with sponsored identities use Hopper?_ Not currently
  
 ---
+## Your Questions?
 
+---
 <!-- _footer: "" -->
 
 # Workshop Feedback
